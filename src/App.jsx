@@ -1,11 +1,10 @@
-import {AllRoutes} from "./routes"
+import { AllRoutes } from "./routes/AllRoutes"
 import './App.css'
-
 function App() {
 
   return (
     <>
-      Hello
+      <AllRoutes/>
     </>
   )
 }
