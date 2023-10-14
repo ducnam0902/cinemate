@@ -1,7 +1,8 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo.png";
 import { useEffect, useState } from "react";
 export const Header = () => {
+  const navigate = useNavigate();
   const [hidden, setHidden] = useState(false);
   const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode")) || true);
 
@@ -16,6 +17,13 @@ export const Header = () => {
       document.documentElement.classList.remove('dark');
     }
   }, [darkMode]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const queryTerm = e.target.search.value;
+    e.target.reset();
+    return navigate(`/search?q=${queryTerm}`);
+  }
 
   return (
     <header>
@@ -33,8 +41,9 @@ export const Header = () => {
               type="button"
               data-tooltip-target="navbarr-search-example-toggle-darkmode-tooltip"
               onClick={() => setDarkMode(!darkMode)}
+              className=" text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1"
             >
-              darkmode
+               { darkMode ? (<svg aria-hidden="true" data-toggle-icon="sun" className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fillRule="evenodd" clipRule="evenodd"></path></svg>) : (<svg aria-hidden="true" data-toggle-icon="moon" className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>) }
             </button>
             <button
               type="button"
@@ -79,13 +88,17 @@ export const Header = () => {
                 </svg>
                 <span className="sr-only">Search icon</span>
               </div>
+              <form onSubmit={handleSubmit}>
               <input
                 type="text"
                 id="search-navbar"
                 className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Search..."
                 autoComplete="off"
+                name="search"
               />
+              </form>
+
             </div>
             <button
               data-collapse-toggle="navbar-search"
@@ -136,13 +149,17 @@ export const Header = () => {
                   />
                 </svg>
               </div>
+              <form onSubmit={handleSubmit}>
               <input
                 type="text"
                 id="search-navbar"
                 className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Search..."
                 autoComplete="off"
+                name="search"
               />
+              </form>
+
             </div>
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
